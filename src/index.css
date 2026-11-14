@@ -1,0 +1,79 @@
+@import 'tailwindcss';
+
+/* 디자인 토큰: 볼펜 잉크(네이비) + 형광펜(라임) + 노트 여백선(빨강) */
+@theme {
+  --font-sans: 'Pretendard Variable', Pretendard, -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+
+  --color-paper: #f6f8fb;
+  --color-surface: #ffffff;
+  --color-line: #c8d5ea;
+  --color-line-soft: #e6ecf5;
+  --color-ink: #1e2a47;
+  --color-ink-soft: #34415f;
+  --color-pencil: #646d82;
+  --color-highlight: #e4f25c;
+  --color-margin: #d6453b;
+
+  --animate-toast-in: toast-in 0.22s ease-out;
+}
+
+@keyframes toast-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}
+
+@keyframes marker-draw {
+  from {
+    background-size: 0% 100%;
+  }
+}
+
+@layer base {
+  html {
+    background: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    word-break: keep-all;
+    overflow-wrap: anywhere;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-ink);
+    outline-offset: 2px;
+  }
+
+  ::selection {
+    background: var(--color-highlight);
+  }
+}
+
+/* 형광펜으로 그은 듯한 밑줄 강조. 이 페이지의 유일한 '튀는' 장치 */
+@utility marker {
+  background-image: linear-gradient(
+    transparent 52%,
+    var(--color-highlight) 52%,
+    var(--color-highlight) 94%,
+    transparent 94%
+  );
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+
+/* 사용자가 공감·채택했을 때 형광펜이 왼쪽에서 오른쪽으로 그어지는 동작 */
+@utility marker-draw {
+  animation: marker-draw 0.45s cubic-bezier(0.3, 0.7, 0.4, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
