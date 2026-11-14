@@ -46,7 +46,7 @@ const HomePage = () => {
         />
       </aside>
 
-      <section aria-labelledby="list-heading" className="mt-6 min-w-0 md:mt-0">
+      <section aria-labelledby="list-heading" className="mt-4 min-w-0 md:mt-0">
         <h1 id="list-heading" className="mb-4 text-2xl font-extrabold tracking-tight">
           {heading}
         </h1>

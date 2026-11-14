@@ -1,4 +1,5 @@
 import { useState, type KeyboardEvent } from 'react'
+import { XIcon } from '@/components/ui/Icon'
 import { fieldIds } from '@/components/ui/styles'
 import { cn } from '@/lib/utils'
 import { TAG_MAX_COUNT, validateTag } from '../schema'
@@ -58,7 +59,7 @@ export const TagInput = ({ id, value, onChange, onBlur }: TagInputProps) => {
               aria-label={`태그 ${tag} 빼기`}
               className="grid size-5 place-items-center rounded-full text-xs text-pencil hover:bg-line hover:text-ink"
             >
-              ✕
+              <XIcon size={12} />
             </button>
           </span>
         ))}

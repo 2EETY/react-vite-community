@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useId, useRef } from 'react'
 import { Button } from './Button'
 
 interface ConfirmDialogProps {
@@ -29,6 +29,8 @@ export const ConfirmDialog = ({
   onCancel,
 }: ConfirmDialogProps) => {
   const ref = useRef<HTMLDialogElement>(null)
+  // 확인 창이 한 화면에 여러 개 있어도 제목 id가 겹치지 않게 React가 고유 id를 만들어 준다
+  const titleId = useId()
 
   // open prop과 실제 DOM 상태를 맞추는 동기화라서 effect가 필요하다
   useEffect(() => {
@@ -41,7 +43,7 @@ export const ConfirmDialog = ({
   return (
     <dialog
       ref={ref}
-      aria-labelledby="confirm-title"
+      aria-labelledby={titleId}
       onCancel={(e) => {
         e.preventDefault()
         if (!loading) onCancel()
@@ -52,7 +54,7 @@ export const ConfirmDialog = ({
       className="m-auto w-[min(400px,calc(100%-32px))] rounded-lg border border-line bg-surface p-0 text-ink shadow-xl backdrop:bg-black/45"
     >
       <div className="p-6">
-        <h2 id="confirm-title" className="text-lg font-bold">
+        <h2 id={titleId} className="text-lg font-bold">
           {title}
         </h2>
         {description && <p className="mt-2 text-[15px] leading-relaxed text-pencil">{description}</p>}

@@ -40,6 +40,7 @@ export const ReactionBar = ({ post }: ReactionBarProps) => {
       <button
         type="button"
         aria-pressed={liked}
+        aria-label={`공감 ${post.likedBy.length}개`}
         disabled={likePending}
         onClick={() => guard(() => void toggleLike(post.id), '로그인하면 공감할 수 있어요.')}
         className={pillClass(liked)}

@@ -1,3 +1,4 @@
+import { XIcon } from '@/components/ui/Icon'
 import { inputClass } from '@/components/ui/styles'
 import { cn } from '@/lib/utils'
 import type { PostFilters, SortKey, StatusKey } from '../usePostFilters'
@@ -48,16 +49,17 @@ export const ListToolbar = ({ filters, onQueryChange, onSortChange, onStatusChan
         value={filters.q}
         onChange={(e) => onQueryChange(e.target.value)}
         placeholder="제목, 본문, 작성자, 태그로 찾기"
-        className={inputClass(false, 'h-11 pr-10')}
+        // 브라우저 기본 지우기(✕) 버튼을 숨겨 직접 만든 버튼과 겹치지 않게 한다
+        className={inputClass(false, 'h-11 pr-11 [&::-webkit-search-cancel-button]:appearance-none')}
       />
       {filters.q && (
         <button
           type="button"
           onClick={() => onQueryChange('')}
           aria-label="검색어 지우기"
-          className="absolute top-1/2 right-2 grid size-7 -translate-y-1/2 place-items-center rounded text-pencil hover:bg-line-soft hover:text-ink"
+          className="absolute top-1/2 right-1.5 grid size-8 -translate-y-1/2 place-items-center rounded text-pencil hover:bg-line-soft hover:text-ink"
         >
-          ✕
+          <XIcon />
         </button>
       )}
     </div>
@@ -70,7 +72,8 @@ export const ListToolbar = ({ filters, onQueryChange, onSortChange, onStatusChan
         options={[
           { value: 'latest', label: '최신순' },
           { value: 'likes', label: '공감순' },
-          { value: 'comments', label: '답변순' },
+          // 질문이 아닌 글에는 '답변'이 아니라 '댓글'이 달린다
+          { value: 'comments', label: filters.cat === 'question' ? '답변순' : '댓글순' },
         ]}
       />
       {filters.cat === 'question' && (
@@ -93,9 +96,7 @@ export const ListToolbar = ({ filters, onQueryChange, onSortChange, onStatusChan
           aria-label={`태그 ${filters.tag} 필터 해제`}
         >
           #{filters.tag}
-          <span aria-hidden className="text-on-ink/70">
-            ✕
-          </span>
+          <XIcon size={14} className="text-on-ink/70" />
         </button>
       )}
     </div>
