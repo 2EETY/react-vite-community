@@ -62,7 +62,11 @@ const LoginPage = () => {
         <>
           <h1 className="text-2xl font-extrabold tracking-tight">로그인</h1>
           <p className="mt-2 text-[15px] text-pencil">로그인하면 글과 댓글을 쓰고, 공감하고, 북마크할 수 있어요.</p>
-          <div className="mt-7">
+          {/* 버튼을 누르기 전에 읽도록 데모 안내를 버튼 위로 옮겼다 */}
+          <p className="mt-5 border-l border-margin pl-3 text-sm leading-relaxed text-ink-soft">
+            포트폴리오용 데모라서 실제 계정에는 연결하지 않아요. 버튼을 누르면 가상의 계정으로 로그인돼요.
+          </p>
+          <div className="mt-6">
             <ProviderButtons
               connecting={step.name === 'connecting' ? step.provider : null}
               onSelect={(p) => void connect(p)}
@@ -73,9 +77,6 @@ const LoginPage = () => {
               {failure}
             </p>
           )}
-          <p className="mt-8 rounded-md bg-line-soft px-4 py-3 text-sm leading-relaxed text-ink-soft">
-            포트폴리오용 데모라서 실제 계정에는 연결하지 않아요. 버튼을 누르면 가상의 계정으로 로그인돼요.
-          </p>
         </>
       )}
     </div>

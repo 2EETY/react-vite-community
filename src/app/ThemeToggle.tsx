@@ -11,7 +11,7 @@ export const ThemeToggle = () => {
       onClick={toggleTheme}
       aria-label={isDark ? '라이트 모드로 바꾸기' : '다크 모드로 바꾸기'}
       title={isDark ? '라이트 모드로 바꾸기' : '다크 모드로 바꾸기'}
-      className="grid size-8 place-items-center rounded-md text-pencil transition-colors hover:bg-line-soft hover:text-ink"
+      className="grid size-10 place-items-center rounded-md text-pencil sm:size-9 transition-colors hover:bg-line-soft hover:text-ink"
     >
       {/* 지금 모드가 아니라 '누르면 바뀔 모드'의 아이콘을 보여준다 */}
       {isDark ? <SunIcon /> : <MoonIcon />}

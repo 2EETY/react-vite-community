@@ -18,22 +18,32 @@ interface SegmentedProps<T extends string> {
   onChange: (value: T) => void
 }
 
+/**
+ * 선택 상태 규칙: 지금 고른 값은 형광펜, 남색 채움은 주요 동작 버튼에만 쓴다.
+ * 그룹 이름(정렬·해결 여부)을 눈에 보이게 붙여 두 묶음이 섞여 보이지 않게 한다.
+ */
 const Segmented = <T extends string>({ label, value, options, onChange }: SegmentedProps<T>) => (
-  <div role="group" aria-label={label} className="flex rounded-md border border-line bg-surface p-0.5">
-    {options.map((o) => (
-      <button
-        key={o.value}
-        type="button"
-        aria-pressed={value === o.value}
-        onClick={() => onChange(o.value)}
-        className={cn(
-          'rounded px-2.5 py-1 text-sm transition-colors',
-          value === o.value ? 'bg-ink font-semibold text-on-ink' : 'text-ink-soft hover:text-ink',
-        )}
-      >
-        {o.label}
-      </button>
-    ))}
+  <div role="group" aria-label={label} className="flex items-center">
+    <span aria-hidden className="mr-1 text-sm text-pencil">
+      {label}
+    </span>
+    {options.map((o) => {
+      const selected = value === o.value
+      return (
+        <button
+          key={o.value}
+          type="button"
+          aria-pressed={selected}
+          onClick={() => onChange(o.value)}
+          className={cn(
+            'h-10 rounded-md px-2.5 text-[15px] transition-colors sm:h-9',
+            selected ? 'font-semibold text-ink' : 'text-ink-soft hover:bg-line-soft hover:text-ink',
+          )}
+        >
+          <span className={cn(selected && 'marker')}>{o.label}</span>
+        </button>
+      )
+    })}
   </div>
 )
 
@@ -64,7 +74,7 @@ export const ListToolbar = ({ filters, onQueryChange, onSortChange, onStatusChan
       )}
     </div>
 
-    <div className="flex flex-wrap items-center gap-2">
+    <div className="flex flex-wrap items-center gap-x-5 gap-y-1">
       <Segmented
         label="정렬"
         value={filters.sort}
@@ -92,11 +102,11 @@ export const ListToolbar = ({ filters, onQueryChange, onSortChange, onStatusChan
         <button
           type="button"
           onClick={onClearTag}
-          className="flex items-center gap-1.5 rounded-full bg-ink py-1 pr-2 pl-3 text-sm text-on-ink"
+          className="group flex h-10 items-center gap-1.5 rounded-md px-2 text-[15px] font-semibold text-ink hover:bg-line-soft sm:h-9"
           aria-label={`태그 ${filters.tag} 필터 해제`}
         >
-          #{filters.tag}
-          <XIcon size={14} className="text-on-ink/70" />
+          <span className="marker">#{filters.tag}</span>
+          <XIcon size={14} className="text-pencil group-hover:text-ink" />
         </button>
       )}
     </div>

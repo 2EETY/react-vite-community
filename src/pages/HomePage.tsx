@@ -10,6 +10,15 @@ import { CATEGORY_LABEL, cn } from '@/lib/utils'
 import { useAuthStore } from '@/stores/authStore'
 import { usePostStore } from '@/stores/postStore'
 
+/** 처음 온 사람도 이 게시판·분류가 무엇을 하는 곳인지 바로 알 수 있게 붙이는 한 줄 설명 */
+const INTRO = {
+  all: '모르는 건 묻고, 오늘 배운 건 적어 두는 게시판이에요.',
+  question: '막힌 곳을 물어보세요. 마음에 드는 답변을 채택하면 해결된 질문이 돼요.',
+  diary: '오늘 배운 것, 겪은 것을 적어 두는 곳이에요.',
+  chat: '개발 이야기 말고도 나누고 싶은 이야기를 적어요.',
+  saved: '다시 보려고 북마크해 둔 글을 모았어요.',
+} as const
+
 const HomePage = () => {
   const { filters, update, reset } = usePostFilters()
   const postMap = usePostStore((s) => s.posts)
@@ -31,6 +40,7 @@ const HomePage = () => {
   )
 
   const heading = saved ? '내 북마크' : cat === 'all' ? '모든 글' : CATEGORY_LABEL[cat]
+  const intro = saved ? INTRO.saved : INTRO[cat]
   const isFiltered = Boolean(filters.q || tag || solved !== 'all')
 
   return (
@@ -47,9 +57,10 @@ const HomePage = () => {
       </aside>
 
       <section aria-labelledby="list-heading" className="mt-4 min-w-0 md:mt-0">
-        <h1 id="list-heading" className="mb-4 text-2xl font-extrabold tracking-tight">
+        <h1 id="list-heading" className="text-2xl font-extrabold tracking-tight">
           {heading}
         </h1>
+        <p className="mt-1.5 mb-5 text-[15px] text-pencil">{intro}</p>
 
         <ListToolbar
           filters={filters}

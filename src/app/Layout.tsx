@@ -37,7 +37,7 @@ export const Layout = () => {
       <footer className="border-t border-line">
         <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-2 px-4 py-5 text-sm text-pencil sm:px-6">
           <p>데이터는 이 브라우저에만 저장돼요.</p>
-          <button type="button" onClick={() => setConfirmReset(true)} className="underline-offset-4 hover:text-ink hover:underline">
+          <button type="button" onClick={() => setConfirmReset(true)} className="-my-2.5 py-2.5 underline-offset-4 hover:text-ink hover:underline">
             데모 데이터 처음으로 되돌리기
           </button>
         </div>

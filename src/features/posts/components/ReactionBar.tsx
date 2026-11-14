@@ -12,7 +12,8 @@ interface ReactionBarProps {
 const pillClass = (active: boolean) =>
   cn(
     'inline-flex h-10 items-center gap-2 rounded-full border px-4 text-[15px] transition-colors disabled:opacity-60',
-    active ? 'border-ink text-ink' : 'border-line bg-surface text-ink-soft hover:border-ink hover:text-ink',
+    // 눌린 상태는 형광펜(공감)과 채워진 아이콘(북마크)으로 보여주고, 테두리는 같은 모양을 유지한다
+    active ? 'border-line bg-surface font-semibold text-ink' : 'border-line bg-surface text-ink-soft hover:border-ink hover:text-ink',
   )
 
 export const ReactionBar = ({ post }: ReactionBarProps) => {

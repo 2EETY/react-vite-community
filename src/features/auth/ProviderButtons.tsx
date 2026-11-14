@@ -6,10 +6,14 @@ interface ProviderButtonsProps {
   onSelect: (provider: Provider) => void
 }
 
-const STYLES: Record<Provider, { button: string; mark: string; glyph: string }> = {
-  google: { button: 'border border-line bg-surface text-ink hover:border-ink', mark: 'bg-line-soft text-ink', glyph: 'G' },
-  github: { button: 'bg-ink text-on-ink hover:bg-ink-soft', mark: 'bg-on-ink/15 text-on-ink', glyph: 'GH' },
-  kakao: { button: 'bg-[#FEE500] text-[#191600] hover:brightness-95', mark: 'bg-black/10 text-[#191600]', glyph: 'K' },
+/**
+ * 세 버튼을 같은 무게의 흰 버튼으로 맞추고, 서비스 색은 왼쪽 작은 표시에만 남긴다.
+ * 카카오 노란색이 화면에서 가장 큰 색 면이 되어 형광펜 포인트와 다투지 않게 하려는 것.
+ */
+const MARKS: Record<Provider, { className: string; glyph: string }> = {
+  google: { className: 'border border-line bg-surface text-ink', glyph: 'G' },
+  github: { className: 'bg-[#24292f] text-white ring-1 ring-white/15', glyph: 'GH' },
+  kakao: { className: 'bg-[#FEE500] text-[#191600]', glyph: 'K' },
 }
 
 const ORDER: Provider[] = ['google', 'github', 'kakao']
@@ -17,7 +21,7 @@ const ORDER: Provider[] = ['google', 'github', 'kakao']
 export const ProviderButtons = ({ connecting, onSelect }: ProviderButtonsProps) => (
   <ul className="flex flex-col gap-2.5">
     {ORDER.map((provider) => {
-      const s = STYLES[provider]
+      const mark = MARKS[provider]
       const isConnecting = connecting === provider
       return (
         <li key={provider}>
@@ -27,13 +31,12 @@ export const ProviderButtons = ({ connecting, onSelect }: ProviderButtonsProps) 
             disabled={connecting !== null}
             aria-busy={isConnecting || undefined}
             className={cn(
-              'flex h-12 w-full items-center gap-3 rounded-md px-3 text-[15px] font-semibold transition disabled:cursor-wait',
-              s.button,
+              'flex h-12 w-full items-center gap-3 rounded-md border border-line bg-surface px-3 text-[15px] font-semibold text-ink transition-colors hover:border-ink disabled:cursor-wait',
               connecting !== null && !isConnecting && 'opacity-50',
             )}
           >
-            <span aria-hidden className={cn('grid size-7 place-items-center rounded text-xs font-black', s.mark)}>
-              {s.glyph}
+            <span aria-hidden className={cn('grid size-7 place-items-center rounded text-xs font-black', mark.className)}>
+              {mark.glyph}
             </span>
             <span className="flex-1 text-left">
               {isConnecting ? `${PROVIDER_LABEL[provider]}에 연결하는 중…` : `${PROVIDER_LABEL[provider]}로 계속하기`}

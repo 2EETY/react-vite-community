@@ -11,7 +11,8 @@ const variants: Record<ButtonVariant, string> = {
 }
 
 const sizes: Record<ButtonSize, string> = {
-  sm: 'h-8 px-3 text-sm',
+  // 모바일 터치 영역을 40px 이상으로 확보하고, 넓은 화면에선 조금 줄인다
+  sm: 'h-10 px-3 text-sm sm:h-9',
   md: 'h-10 px-4 text-[15px]',
 }
 
