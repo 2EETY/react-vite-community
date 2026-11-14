@@ -25,3 +25,9 @@ dist-ssr
 
 # 브라우저 테스트 스크린샷
 .playwright-mcp
+
+# 윤문 스킬 작업 폴더
+_workspace
+
+# 디자인 비평 기록 (impeccable)
+.impeccable
