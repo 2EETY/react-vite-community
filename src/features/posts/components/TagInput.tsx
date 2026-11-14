@@ -78,7 +78,7 @@ export const TagInput = ({ id, value, onChange, onBlur }: TagInputProps) => {
           placeholder={full ? '태그를 모두 달았어요' : '태그 입력 후 Enter'}
           aria-invalid={problem ? true : undefined}
           aria-describedby={problem ? ids.error : ids.hint}
-          className="h-8 min-w-32 flex-1 bg-transparent px-1 text-[15px] outline-none placeholder:text-pencil/70 disabled:cursor-not-allowed"
+          className="h-8 min-w-32 flex-1 bg-transparent px-1 text-[15px] outline-none placeholder:text-pencil disabled:cursor-not-allowed"
         />
       </div>
       {problem ? (

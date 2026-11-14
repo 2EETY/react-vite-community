@@ -15,7 +15,7 @@ export const Header = () => {
   const onLoginPage = location.pathname === '/login'
 
   return (
-    <header className="border-b border-line bg-surface">
+    <header className="border-b border-line bg-paper">
       <div className="mx-auto flex h-16 max-w-6xl items-center gap-3 px-4 sm:px-6">
         <Link to="/" className="flex items-center gap-2.5" aria-label="물음표 게시판 홈">
           <span aria-hidden className="grid size-8 place-items-center rounded-md bg-highlight text-xl font-black text-on-highlight">

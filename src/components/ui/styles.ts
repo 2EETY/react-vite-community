@@ -27,7 +27,7 @@ export const buttonClass = (variant: ButtonVariant = 'primary', size: ButtonSize
 /** 입력창 공통 스타일. 에러가 있으면 노트 여백선 색으로 테두리를 바꾼다 */
 export const inputClass = (invalid: boolean, extra?: string) =>
   cn(
-    'w-full rounded-md border bg-surface px-3 text-[15px] text-ink outline-none transition-colors placeholder:text-pencil/70 focus:border-ink',
+    'w-full rounded-md border bg-surface px-3 text-[15px] text-ink outline-none transition-colors placeholder:text-pencil focus:border-ink',
     invalid ? 'border-margin' : 'border-line',
     extra,
   )

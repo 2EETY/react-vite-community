@@ -49,7 +49,7 @@ export const ConfirmDialog = ({
       onClick={(e) => {
         if (e.target === ref.current && !loading) onCancel()
       }}
-      className="m-auto w-[min(400px,calc(100%-32px))] rounded-lg border border-line bg-surface p-0 text-ink shadow-xl backdrop:bg-[#0b1220]/50"
+      className="m-auto w-[min(400px,calc(100%-32px))] rounded-lg border border-line bg-surface p-0 text-ink shadow-xl backdrop:bg-black/45"
     >
       <div className="p-6">
         <h2 id="confirm-title" className="text-lg font-bold">

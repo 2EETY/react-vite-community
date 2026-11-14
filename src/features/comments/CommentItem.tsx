@@ -44,10 +44,7 @@ export const CommentItem = ({ comment, isMine, isAccepted, canAccept, justAccept
 
   return (
     <li
-      className={cn(
-        'border-l-4 py-5 pr-4 pl-4 sm:pr-6 sm:pl-5',
-        isAccepted ? 'border-highlight bg-highlight/12' : 'border-transparent',
-      )}
+      className={cn('py-5 pr-4 pl-4 sm:pr-6 sm:pl-6', isAccepted && 'bg-accept-wash')}
     >
       {isAccepted && (
         <p className="mb-2 text-sm font-bold text-ink">
