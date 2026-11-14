@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Button } from '@/components/ui/Button'
 import { ConfirmDialog } from '@/components/ui/ConfirmDialog'
+import { notebookRow } from '@/components/ui/styles'
 import { cn, errorMessage, timeAgo } from '@/lib/utils'
 import { useCommentStore } from '@/stores/commentStore'
 import { toast } from '@/stores/toastStore'
@@ -44,7 +45,7 @@ export const CommentItem = ({ comment, isMine, isAccepted, canAccept, justAccept
 
   return (
     <li
-      className={cn('py-5 pr-4 pl-4 sm:pr-6 sm:pl-6', isAccepted && 'bg-accept-wash')}
+      className={cn('py-5', notebookRow, isAccepted && 'bg-accept-wash')}
     >
       {isAccepted && (
         <p className="mb-2 text-sm font-bold text-ink">

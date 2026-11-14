@@ -69,7 +69,7 @@ const LoginPage = () => {
             />
           </div>
           {failure && (
-            <p role="alert" className="mt-4 border-l-2 border-margin pl-2 text-sm text-margin">
+            <p role="alert" className="mt-4 border-l border-margin pl-2 text-sm text-margin">
               {failure}
             </p>
           )}

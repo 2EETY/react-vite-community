@@ -113,6 +113,40 @@
   );
 }
 
+/*
+ * 노트의 빨간 여백선. 목록·글·댓글 영역 왼쪽에 1px 세로줄을 긋는다.
+ * 선 위치는 --margin-x로 조절하고, 내용은 그보다 오른쪽에서 시작하게 패딩을 준다.
+ */
+@utility margin-rule {
+  position: relative;
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: var(--margin-x, 1.75rem);
+    width: 1px;
+    background: color-mix(in srgb, var(--color-margin) 80%, transparent);
+    pointer-events: none;
+    z-index: 1;
+  }
+}
+
+/* 노트 괘선이 그어진 입력칸. 글자 줄과 선 간격(--rule)을 맞춰 글씨가 선 위에 앉는다 */
+@utility ruled {
+  --rule: 2rem;
+  line-height: var(--rule);
+  background-image: linear-gradient(
+    to bottom,
+    transparent calc(var(--rule) - 1px),
+    var(--color-line-soft) calc(var(--rule) - 1px)
+  );
+  background-size: 100% var(--rule);
+  background-position: 0 0.5rem;
+  /* 스크롤해도 선이 글자와 함께 움직이게 */
+  background-attachment: local;
+}
+
 /* 사용자가 공감·채택했을 때 형광펜이 왼쪽에서 오른쪽으로 그어지는 동작 */
 @utility marker-draw {
   animation: marker-draw 0.45s cubic-bezier(0.3, 0.7, 0.4, 1) both;

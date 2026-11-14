@@ -79,11 +79,11 @@ export const CommentForm = ({
           if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) void submit()
           if (e.key === 'Escape' && onCancel) onCancel()
         }}
-        className={inputClass(!!errors.body, 'resize-y py-2.5 leading-relaxed')}
+        className={inputClass(!!errors.body, 'ruled resize-y py-2')}
       />
       <div className="flex flex-wrap items-center justify-between gap-2">
         {errors.body ? (
-          <p id={ids.error} role="alert" className="border-l-2 border-margin pl-2 text-sm text-margin">
+          <p id={ids.error} role="alert" className="border-l border-margin pl-2 text-sm text-margin">
             {errors.body.message}
           </p>
         ) : (

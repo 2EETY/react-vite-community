@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import { HighlightText } from '@/components/ui/HighlightText'
+import { notebookRow } from '@/components/ui/styles'
 import { cn, timeAgo } from '@/lib/utils'
 import type { Post } from '@/types'
 import { StatusBadge } from './StatusBadge'
@@ -19,7 +20,7 @@ export const PostRow = ({ post, query, activeTag, userId, onTagClick }: PostRowP
   const excerpt = flat.length > 140 ? `${flat.slice(0, 140).trimEnd()}…` : flat
 
   return (
-    <article className="relative px-4 py-5 transition-colors hover:bg-paper sm:px-6">
+    <article className={cn('relative py-5 transition-colors hover:bg-surface', notebookRow)}>
       <div className="flex items-center gap-2">
         <StatusBadge post={post} />
         {saved && <span className="text-xs text-pencil">북마크함</span>}
@@ -37,19 +38,25 @@ export const PostRow = ({ post, query, activeTag, userId, onTagClick }: PostRowP
 
       <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-pencil">
         {post.tags.length > 0 && (
-          <ul className="relative z-10 flex flex-wrap gap-1.5" aria-label="태그">
+          <ul className="relative z-10 -my-2 flex flex-wrap gap-x-1" aria-label="태그">
             {post.tags.map((tag) => (
               <li key={tag}>
+                {/* 알약 모양 대신 노트에 연필로 적은 #태그. 위아래 패딩으로 터치 영역만 넓힌다 */}
                 <button
                   type="button"
                   onClick={() => onTagClick(tag)}
                   aria-pressed={activeTag === tag}
-                  className={cn(
-                    'rounded-full px-2 py-0.5 text-xs font-medium transition-colors',
-                    activeTag === tag ? 'bg-ink text-on-ink' : 'bg-line-soft text-ink-soft hover:bg-line',
-                  )}
+                  aria-label={activeTag === tag ? `태그 ${tag} 필터 해제` : `태그 ${tag}로 거르기`}
+                  className="px-1 py-2 text-sm"
                 >
-                  #{tag}
+                  <span
+                    className={cn(
+                      'underline-offset-4 transition-colors',
+                      activeTag === tag ? 'marker font-semibold text-ink' : 'text-pencil hover:text-ink hover:underline',
+                    )}
+                  >
+                    #{tag}
+                  </span>
                 </button>
               </li>
             ))}

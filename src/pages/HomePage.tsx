@@ -5,7 +5,8 @@ import { ListToolbar } from '@/features/posts/components/ListToolbar'
 import { PostRow } from '@/features/posts/components/PostRow'
 import { countByCategory, filterPosts } from '@/features/posts/filterPosts'
 import { usePostFilters } from '@/features/posts/usePostFilters'
-import { CATEGORY_LABEL } from '@/lib/utils'
+import { notebookRow, notebookSheet } from '@/components/ui/styles'
+import { CATEGORY_LABEL, cn } from '@/lib/utils'
 import { useAuthStore } from '@/stores/authStore'
 import { usePostStore } from '@/stores/postStore'
 
@@ -62,9 +63,9 @@ const HomePage = () => {
           {status === 'ready' && (isFiltered ? `조건에 맞는 글 ${visible.length}개` : `글 ${visible.length}개`)}
         </p>
 
-        <div className="-mx-4 overflow-hidden border-y border-line bg-surface sm:mx-0 sm:rounded-lg sm:border">
+        <div className={cn('-mx-4 sm:mx-0', notebookSheet)}>
           {status === 'error' ? (
-            <div className="flex flex-col items-start gap-3 px-6 py-10">
+            <div className={cn('flex flex-col items-start gap-3 py-10', notebookRow)}>
               <p className="text-[15px] text-ink">글 목록을 불러오지 못했어요. {error}</p>
               <Button variant="secondary" size="sm" onClick={() => void fetchPosts()}>
                 다시 불러오기
@@ -75,7 +76,7 @@ const HomePage = () => {
           ) : visible.length === 0 ? (
             <EmptyList saved={saved} filtered={isFiltered} onReset={reset} />
           ) : (
-            <div className="divide-y divide-line-soft">
+            <div className="divide-y divide-line">
               {visible.map((post) => (
                 <PostRow
                   key={post.id}
@@ -95,9 +96,9 @@ const HomePage = () => {
 }
 
 const ListSkeleton = () => (
-  <div aria-label="글 목록을 불러오는 중" role="status" className="divide-y divide-line-soft">
+  <div aria-label="글 목록을 불러오는 중" role="status" className="divide-y divide-line">
     {[0, 1, 2, 3].map((i) => (
-      <div key={i} className="animate-pulse px-6 py-5">
+      <div key={i} className={cn('animate-pulse py-5', notebookRow)}>
         <div className="h-3 w-20 rounded bg-line-soft" />
         <div className="mt-3 h-4 w-3/4 rounded bg-line-soft" />
         <div className="mt-2 h-3 w-full rounded bg-line-soft" />
@@ -107,7 +108,7 @@ const ListSkeleton = () => (
 )
 
 const EmptyList = ({ saved, filtered, onReset }: { saved: boolean; filtered: boolean; onReset: () => void }) => (
-  <div className="flex flex-col items-start gap-3 px-6 py-12">
+  <div className={cn('flex flex-col items-start gap-3 py-12', notebookRow)}>
     <p className="text-[15px] text-ink">
       {saved && !filtered
         ? '아직 북마크한 글이 없어요. 글을 읽다가 다시 보고 싶으면 북마크를 눌러 두세요.'

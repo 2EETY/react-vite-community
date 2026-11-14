@@ -80,7 +80,7 @@ export const PostForm = ({ defaultValues, submitLabel, onSubmit }: PostFormProps
           placeholder="질문이라면 시도해 본 것과 에러 메시지를 함께 적어 주세요."
           aria-invalid={errors.body ? true : undefined}
           aria-describedby={describedBy('body', !!errors.body)}
-          className={inputClass(!!errors.body, 'resize-y py-2.5 leading-relaxed')}
+          className={inputClass(!!errors.body, 'ruled resize-y py-2')}
         />
       </Field>
 

@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { ConfirmDialog } from '@/components/ui/ConfirmDialog'
+import { ArrowLeftIcon } from '@/components/ui/Icon'
 import { buttonClass } from '@/components/ui/styles'
 import { CommentSection } from '@/features/comments/CommentSection'
 import { ReactionBar } from '@/features/posts/components/ReactionBar'
@@ -47,11 +48,13 @@ const PostDetailPage = () => {
 
   return (
     <div className="mx-auto max-w-3xl">
-      <Link to="/" className="text-sm text-pencil hover:text-ink">
-        ← 목록으로
+      <Link to="/" className="ml-7 inline-flex items-center gap-1.5 text-sm text-pencil hover:text-ink sm:ml-16">
+        <ArrowLeftIcon size={15} />
+        목록으로
       </Link>
 
-      <article className="mt-4">
+      {/* 댓글 영역과 같은 위치에 여백선을 그어 글과 답변이 한 장의 노트로 이어지게 한다 */}
+      <article className="margin-rule -mx-4 mt-4 pr-4 pl-11 [--margin-x:1.75rem] sm:mx-0 sm:pr-0 sm:pl-16 sm:[--margin-x:2.5rem]">
         <header className="border-b border-line pb-5">
           <StatusBadge post={post} />
           <h1 className="mt-2 text-[26px] leading-tight font-extrabold tracking-tight sm:text-3xl">{post.title}</h1>
@@ -75,12 +78,13 @@ const PostDetailPage = () => {
         <div className="py-7 text-[16.5px] leading-[1.8] whitespace-pre-wrap text-ink">{post.body}</div>
 
         {post.tags.length > 0 && (
-          <ul className="mb-6 flex flex-wrap gap-1.5" aria-label="태그">
+          <ul className="mb-6 -ml-1 flex flex-wrap gap-x-1" aria-label="태그">
             {post.tags.map((tag) => (
               <li key={tag}>
                 <Link
                   to={`/?tag=${encodeURIComponent(tag)}`}
-                  className="rounded-full bg-line-soft px-2.5 py-1 text-sm text-ink-soft hover:bg-line"
+                  aria-label={`태그 ${tag}가 달린 글 보기`}
+                  className="inline-block px-1 py-2 text-[15px] text-pencil underline-offset-4 hover:text-ink hover:underline"
                 >
                   #{tag}
                 </Link>

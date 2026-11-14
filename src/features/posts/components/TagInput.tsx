@@ -82,7 +82,7 @@ export const TagInput = ({ id, value, onChange, onBlur }: TagInputProps) => {
         />
       </div>
       {problem ? (
-        <p id={ids.error} role="alert" className="border-l-2 border-margin pl-2 text-sm text-margin">
+        <p id={ids.error} role="alert" className="border-l border-margin pl-2 text-sm text-margin">
           {problem}
         </p>
       ) : (

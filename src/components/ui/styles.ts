@@ -34,3 +34,9 @@ export const inputClass = (invalid: boolean, extra?: string) =>
 
 /** Field의 에러·힌트 문구 id. 입력창의 aria-describedby에 연결한다 */
 export const fieldIds = (id: string) => ({ error: `${id}-error`, hint: `${id}-hint` })
+
+/** 줄 쳐진 노트 한 장: 위아래 괘선 + 왼쪽 빨간 여백선 */
+export const notebookSheet = 'margin-rule border-y border-line [--margin-x:1.75rem] sm:[--margin-x:2.5rem]'
+
+/** 노트 한 줄의 안쪽 여백. 글은 여백선 오른쪽에서 시작한다 */
+export const notebookRow = 'pr-4 pl-11 sm:pr-6 sm:pl-16'

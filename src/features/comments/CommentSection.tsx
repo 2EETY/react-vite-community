@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import { buttonClass } from '@/components/ui/styles'
+import { buttonClass, notebookRow, notebookSheet } from '@/components/ui/styles'
+import { cn } from '@/lib/utils'
 import { useAuthStore } from '@/stores/authStore'
 import { useCommentStore } from '@/stores/commentStore'
 import { toast } from '@/stores/toastStore'
@@ -45,19 +46,19 @@ export const CommentSection = ({ post }: CommentSectionProps) => {
 
   return (
     <section aria-labelledby="comments-heading" className="mt-10">
-      <h2 id="comments-heading" className="px-4 text-lg font-bold sm:px-0">
+      <h2 id="comments-heading" className="pl-11 text-lg font-bold sm:pl-16">
         {noun} <span className="text-pencil tabular-nums">{post.commentCount}</span>
       </h2>
 
-      <div className="mt-4 overflow-hidden border-y border-line bg-surface sm:rounded-lg sm:border">
+      <div className={cn('mt-4', notebookSheet)}>
         {!loaded ? (
-          <p className="px-6 py-8 text-sm text-pencil">{noun}을 불러오는 중이에요.</p>
+          <p className={cn('py-8 text-sm text-pencil', notebookRow)}>{noun}을 불러오는 중이에요.</p>
         ) : sorted.length === 0 ? (
-          <p className="px-6 py-8 text-[15px] text-ink-soft">
+          <p className={cn('py-8 text-[15px] text-ink-soft', notebookRow)}>
             {isQuestion ? '아직 답변이 없어요. 알고 있는 걸 나눠 주세요.' : '첫 댓글을 남겨 보세요.'}
           </p>
         ) : (
-          <ul className="divide-y divide-line-soft">
+          <ul className="divide-y divide-line">
             {sorted.map((c) => (
               <CommentItem
                 key={c.id}
@@ -72,7 +73,7 @@ export const CommentSection = ({ post }: CommentSectionProps) => {
           </ul>
         )}
 
-        <div className="border-t border-line bg-paper/60 px-4 py-5 sm:px-6">
+        <div className={cn('border-t border-line py-5', notebookRow)}>
           {user ? (
             <CommentForm
               id="new-comment"
