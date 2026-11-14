@@ -46,7 +46,7 @@ export const PostRow = ({ post, query, activeTag, userId, onTagClick }: PostRowP
                   aria-pressed={activeTag === tag}
                   className={cn(
                     'rounded-full px-2 py-0.5 text-xs font-medium transition-colors',
-                    activeTag === tag ? 'bg-ink text-white' : 'bg-line-soft text-ink-soft hover:bg-line',
+                    activeTag === tag ? 'bg-ink text-on-ink' : 'bg-line-soft text-ink-soft hover:bg-line',
                   )}
                 >
                   #{tag}

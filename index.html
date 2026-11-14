@@ -10,6 +10,19 @@
       href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css"
     />
     <title>물음표 게시판</title>
+    <!-- React가 뜨기 전에 테마를 먼저 적용해, 새로고침할 때 흰 화면이 번쩍이지 않게 한다 -->
+    <script>
+      ;(function () {
+        var theme
+        try {
+          theme = JSON.parse(localStorage.getItem('mureum:theme')).state.theme
+        } catch (e) {}
+        if (theme !== 'light' && theme !== 'dark') {
+          theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+        }
+        document.documentElement.dataset.theme = theme
+      })()
+    </script>
   </head>
   <body>
     <div id="root"></div>

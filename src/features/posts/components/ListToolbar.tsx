@@ -27,7 +27,7 @@ const Segmented = <T extends string>({ label, value, options, onChange }: Segmen
         onClick={() => onChange(o.value)}
         className={cn(
           'rounded px-2.5 py-1 text-sm transition-colors',
-          value === o.value ? 'bg-ink font-semibold text-white' : 'text-ink-soft hover:text-ink',
+          value === o.value ? 'bg-ink font-semibold text-on-ink' : 'text-ink-soft hover:text-ink',
         )}
       >
         {o.label}
@@ -89,11 +89,11 @@ export const ListToolbar = ({ filters, onQueryChange, onSortChange, onStatusChan
         <button
           type="button"
           onClick={onClearTag}
-          className="flex items-center gap-1.5 rounded-full bg-ink py-1 pr-2 pl-3 text-sm text-white"
+          className="flex items-center gap-1.5 rounded-full bg-ink py-1 pr-2 pl-3 text-sm text-on-ink"
           aria-label={`태그 ${filters.tag} 필터 해제`}
         >
           #{filters.tag}
-          <span aria-hidden className="text-white/70">
+          <span aria-hidden className="text-on-ink/70">
             ✕
           </span>
         </button>

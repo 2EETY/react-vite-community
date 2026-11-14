@@ -8,7 +8,7 @@ interface ProviderButtonsProps {
 
 const STYLES: Record<Provider, { button: string; mark: string; glyph: string }> = {
   google: { button: 'border border-line bg-surface text-ink hover:border-ink', mark: 'bg-line-soft text-ink', glyph: 'G' },
-  github: { button: 'bg-ink text-white hover:bg-ink-soft', mark: 'bg-white/15 text-white', glyph: 'GH' },
+  github: { button: 'bg-ink text-on-ink hover:bg-ink-soft', mark: 'bg-on-ink/15 text-on-ink', glyph: 'GH' },
   kakao: { button: 'bg-[#FEE500] text-[#191600] hover:brightness-95', mark: 'bg-black/10 text-[#191600]', glyph: 'K' },
 }
 

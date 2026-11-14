@@ -15,7 +15,7 @@ export const Toaster = () => {
           key={t.id}
           role={t.tone === 'error' ? 'alert' : 'status'}
           className={cn(
-            'pointer-events-auto flex w-full max-w-sm animate-toast-in items-center gap-3 rounded-md bg-ink py-3 pr-2 pl-4 text-sm text-white shadow-lg',
+            'pointer-events-auto flex w-full max-w-sm animate-toast-in items-center gap-3 rounded-md bg-ink py-3 pr-2 pl-4 text-sm text-on-ink shadow-lg',
             t.tone === 'error' && 'border-l-4 border-margin',
           )}
         >
@@ -24,7 +24,7 @@ export const Toaster = () => {
             type="button"
             onClick={() => dismiss(t.id)}
             aria-label="알림 닫기"
-            className="grid size-7 place-items-center rounded text-white/60 hover:bg-white/10 hover:text-white"
+            className="grid size-7 place-items-center rounded text-on-ink/60 hover:bg-on-ink/10 hover:text-on-ink"
           >
             ✕
           </button>

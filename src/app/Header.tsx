@@ -4,6 +4,7 @@ import { useAuthGuard } from '@/features/auth/useAuthGuard'
 import { PROVIDER_LABEL } from '@/lib/utils'
 import { useAuthStore } from '@/stores/authStore'
 import { toast } from '@/stores/toastStore'
+import { ThemeToggle } from './ThemeToggle'
 
 export const Header = () => {
   const user = useAuthStore((s) => s.user)
@@ -17,13 +18,14 @@ export const Header = () => {
     <header className="border-b border-line bg-surface">
       <div className="mx-auto flex h-16 max-w-6xl items-center gap-3 px-4 sm:px-6">
         <Link to="/" className="flex items-center gap-2.5" aria-label="물음표 게시판 홈">
-          <span aria-hidden className="grid size-8 place-items-center rounded-md bg-highlight text-xl font-black text-ink">
+          <span aria-hidden className="grid size-8 place-items-center rounded-md bg-highlight text-xl font-black text-on-highlight">
             ?
           </span>
           <span className="text-lg font-extrabold tracking-tight">물음표</span>
         </Link>
 
         <div className="ml-auto flex items-center gap-2">
+          <ThemeToggle />
           {user ? (
             <>
               <span className="hidden items-baseline gap-2 text-sm sm:flex">

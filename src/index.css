@@ -13,8 +13,29 @@
   --color-pencil: #646d82;
   --color-highlight: #e4f25c;
   --color-margin: #d6453b;
+  /* 잉크색 배경(버튼·토스트) 위 글씨 */
+  --color-on-ink: #ffffff;
+  /* 형광펜 배경 위 글씨. 테마와 상관없이 항상 진한 남색 */
+  --color-on-highlight: #1e2a47;
+  /* 글자 밑에 긋는 형광펜 띠. 다크 모드에선 밝은 글씨가 묻히지 않게 반투명 */
+  --color-marker: #e4f25c;
 
   --animate-toast-in: toast-in 0.22s ease-out;
+}
+
+/* 다크 모드: 같은 토큰 이름에 값만 바꿔 끼운다. 컴포넌트 클래스는 그대로 */
+:root[data-theme='dark'] {
+  color-scheme: dark;
+  --color-paper: #131a28;
+  --color-surface: #1a2335;
+  --color-line: #2f3b54;
+  --color-line-soft: #242e44;
+  --color-ink: #e4e9f3;
+  --color-ink-soft: #b4bdd0;
+  --color-pencil: #8e97ab;
+  --color-margin: #ff7468;
+  --color-on-ink: #131a28;
+  --color-marker: rgb(228 242 92 / 0.42);
 }
 
 @keyframes toast-in {
@@ -38,6 +59,8 @@
     -webkit-font-smoothing: antialiased;
     word-break: keep-all;
     overflow-wrap: anywhere;
+    /* 스크롤바가 있든 없든 자리를 비워 둬서, 탭을 바꿀 때 화면이 좌우로 흔들리지 않게 한다 */
+    scrollbar-gutter: stable;
   }
 
   :focus-visible {
@@ -47,6 +70,7 @@
 
   ::selection {
     background: var(--color-highlight);
+    color: var(--color-on-highlight);
   }
 }
 
@@ -54,8 +78,8 @@
 @utility marker {
   background-image: linear-gradient(
     transparent 52%,
-    var(--color-highlight) 52%,
-    var(--color-highlight) 94%,
+    var(--color-marker) 52%,
+    var(--color-marker) 94%,
     transparent 94%
   );
   background-repeat: no-repeat;
