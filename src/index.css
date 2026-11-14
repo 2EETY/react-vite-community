@@ -27,23 +27,23 @@
 }
 
 /*
- * 다크 모드: '밤에 스탠드 아래 펼친 노트'.
- * 푸른 남색 대신 따뜻한 흑연색 종이에 연한 잉크로 쓴 느낌. 형광펜은 밤에도 형광이라 그대로 둔다.
+ * 다크 모드: 색기를 뺀 중성 먹색 종이.
+ * 바탕이 무채색이라 라임 형광펜과 빨간 여백선만 색으로 남는다.
  */
 :root[data-theme='dark'] {
   color-scheme: dark;
-  --color-paper: #1b1a16;
-  --color-surface: #23221d;
-  --color-line: #3b3930;
-  --color-line-soft: #2c2b25;
-  --color-ink: #ece7da;
-  --color-ink-soft: #c8c2b2;
-  --color-pencil: #9c9686;
-  --color-margin: #ee7462;
-  --color-on-ink: #1b1a16;
-  --color-accept-wash: #272a1b;
-  --color-note: #3a382f;
-  --color-on-note: #ece7da;
+  --color-paper: #18181a;
+  --color-surface: #1f1f22;
+  --color-line: #34343a;
+  --color-line-soft: #26262a;
+  --color-ink: #ececee;
+  --color-ink-soft: #c3c3c8;
+  --color-pencil: #9b9ba3;
+  --color-margin: #f07167;
+  --color-on-ink: #18181a;
+  --color-accept-wash: #1f2019;
+  --color-note: #323236;
+  --color-on-note: #ececee;
 }
 
 @keyframes toast-in {
