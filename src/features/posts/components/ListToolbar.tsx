@@ -14,15 +14,17 @@ interface ListToolbarProps {
 interface SegmentedProps<T extends string> {
   label: string
   value: T
+  /** 아무것도 바꾸지 않았을 때의 값. 이 값일 때는 형광펜 없이 굵은 글씨만 */
+  defaultValue: T
   options: Array<{ value: T; label: string }>
   onChange: (value: T) => void
 }
 
 /**
- * 선택 상태 규칙: 지금 고른 값은 형광펜, 남색 채움은 주요 동작 버튼에만 쓴다.
- * 그룹 이름(정렬·해결 여부)을 눈에 보이게 붙여 두 묶음이 섞여 보이지 않게 한다.
+ * 선택 상태 규칙: 형광펜은 사용자가 직접 바꾼 값에만 긋는다(실제 형광펜처럼 '내가 칠한' 표시).
+ * 기본값은 굵게만 표시하고, 남색 채움은 주요 동작 버튼에만 쓴다.
  */
-const Segmented = <T extends string>({ label, value, options, onChange }: SegmentedProps<T>) => (
+const Segmented = <T extends string>({ label, value, defaultValue, options, onChange }: SegmentedProps<T>) => (
   <div role="group" aria-label={label} className="flex items-center">
     <span aria-hidden className="mr-1 text-sm text-pencil">
       {label}
@@ -40,7 +42,7 @@ const Segmented = <T extends string>({ label, value, options, onChange }: Segmen
             selected ? 'font-semibold text-ink' : 'text-ink-soft hover:bg-line-soft hover:text-ink',
           )}
         >
-          <span className={cn(selected && 'marker')}>{o.label}</span>
+          <span className={cn(selected && value !== defaultValue && 'marker')}>{o.label}</span>
         </button>
       )
     })}
@@ -78,6 +80,7 @@ export const ListToolbar = ({ filters, onQueryChange, onSortChange, onStatusChan
       <Segmented
         label="정렬"
         value={filters.sort}
+        defaultValue="latest"
         onChange={onSortChange}
         options={[
           { value: 'latest', label: '최신순' },
@@ -90,11 +93,12 @@ export const ListToolbar = ({ filters, onQueryChange, onSortChange, onStatusChan
         <Segmented
           label="해결 여부"
           value={filters.status}
+          defaultValue="all"
           onChange={onStatusChange}
           options={[
-            { value: 'all', label: '전부' },
+            { value: 'all', label: '전체' },
             { value: 'open', label: '미해결' },
-            { value: 'solved', label: '해결' },
+            { value: 'solved', label: '해결됨' },
           ]}
         />
       )}

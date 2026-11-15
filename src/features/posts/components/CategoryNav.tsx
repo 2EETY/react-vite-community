@@ -48,7 +48,8 @@ export const CategoryNav = ({ active, saved, counts, savedCount, onSelect, onSel
               aria-label={`${label}, 글 ${counts[key]}개`}
               className={itemClass(isActive)}
             >
-              <span className={cn(isActive && 'marker')}>{label}</span>
+              {/* '전체'는 기본 상태라 형광펜 없이 굵게만, 다른 분류를 고르면 형광펜 */}
+              <span className={cn(isActive && key !== 'all' && 'marker')}>{label}</span>
               <Count value={counts[key]} />
             </button>
           </li>

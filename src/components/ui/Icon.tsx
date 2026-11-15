@@ -32,6 +32,12 @@ export const ArrowLeftIcon = (props: IconProps) => (
   </Base>
 )
 
+export const CheckIcon = (props: IconProps) => (
+  <Base {...props}>
+    <path d="M5 12.5l4.5 4.5L19 7.5" />
+  </Base>
+)
+
 export const AlertIcon = (props: IconProps) => (
   <Base {...props}>
     <circle cx="12" cy="12" r="9" />
