@@ -31,3 +31,7 @@ _workspace
 
 # 디자인 비평 기록 (impeccable)
 .impeccable
+
+# Vercel
+.vercel
+.env*
