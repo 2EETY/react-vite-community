@@ -2,6 +2,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm, useWatch } from 'react-hook-form'
 import { z } from 'zod'
 import { Button } from '@/components/ui/Button'
+import { FORMAT_HINT } from '@/components/ui/RichText'
 import { fieldIds, inputClass } from '@/components/ui/styles'
 import { cn, errorMessage } from '@/lib/utils'
 
@@ -91,6 +92,7 @@ export const CommentForm = ({
             <span className={cn('tabular-nums', body.length > COMMENT_MAX && 'text-margin')}>
               {body.length.toLocaleString()} / {COMMENT_MAX.toLocaleString()}
             </span>
+            <span title={FORMAT_HINT}>```로 감싸면 코드 블록</span>
             <span className="hidden sm:inline">Ctrl+Enter로 바로 등록</span>
           </p>
         )}

@@ -4,6 +4,7 @@ import { useBlocker, useNavigate } from 'react-router-dom'
 import { Button } from '@/components/ui/Button'
 import { ConfirmDialog } from '@/components/ui/ConfirmDialog'
 import { Field } from '@/components/ui/Field'
+import { FORMAT_HINT } from '@/components/ui/RichText'
 import { fieldIds, inputClass } from '@/components/ui/styles'
 import { errorMessage } from '@/lib/utils'
 import { BODY_MAX, postSchema, TITLE_MAX, type PostFormValues } from '../schema'
@@ -72,7 +73,7 @@ export const PostForm = ({ defaultValues, submitLabel, onSubmit }: PostFormProps
         />
       </Field>
 
-      <Field label="본문" htmlFor="body" error={errors.body?.message} counter={{ current: body.length, max: BODY_MAX }}>
+      <Field label="본문" htmlFor="body" error={errors.body?.message} hint={FORMAT_HINT} counter={{ current: body.length, max: BODY_MAX }}>
         <textarea
           id="body"
           {...register('body')}

@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { ConfirmDialog } from '@/components/ui/ConfirmDialog'
 import { ArrowLeftIcon } from '@/components/ui/Icon'
+import { RichText } from '@/components/ui/RichText'
 import { buttonClass } from '@/components/ui/styles'
 import { CommentSection } from '@/features/comments/CommentSection'
 import { ReactionBar } from '@/features/posts/components/ReactionBar'
@@ -75,7 +76,7 @@ const PostDetailPage = () => {
           </div>
         </header>
 
-        <div className="py-7 text-[16.5px] leading-[1.8] whitespace-pre-wrap text-ink">{post.body}</div>
+        <RichText text={post.body} className="py-7 text-[16.5px] leading-[1.8] text-ink" />
 
         {post.tags.length > 0 && (
           <ul className="mb-6 -ml-1 flex flex-wrap gap-x-1" aria-label="태그">

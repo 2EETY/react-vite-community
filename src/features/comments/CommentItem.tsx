@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Button } from '@/components/ui/Button'
 import { ConfirmDialog } from '@/components/ui/ConfirmDialog'
+import { RichText } from '@/components/ui/RichText'
 import { notebookRow } from '@/components/ui/styles'
 import { cn, errorMessage, timeAgo } from '@/lib/utils'
 import { useCommentStore } from '@/stores/commentStore'
@@ -78,7 +79,7 @@ export const CommentItem = ({ comment, isMine, isAccepted, canAccept, justAccept
           />
         </div>
       ) : (
-        <p className="mt-2 text-[15px] leading-relaxed whitespace-pre-wrap text-ink">{comment.body}</p>
+        <RichText text={comment.body} className="mt-2 text-[15px] leading-relaxed text-ink" />
       )}
 
       {!editing && (isMine || canAccept) && (

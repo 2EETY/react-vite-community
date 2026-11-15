@@ -109,14 +109,14 @@ const commentSeeds: Array<Omit<Comment, 'createdAt' | 'updatedAt' | 'authorName'
     id: 'c-effect-1',
     postId: 'p-effect-loop',
     authorId: dawn.id,
-    body: '필터링 결과는 state로 따로 들고 있을 필요가 없어요. 원본 목록과 검색어만 state로 두고, 렌더링할 때 filter로 계산하면 됩니다. 계산이 무거우면 useMemo로 감싸세요.\n\nstate에서 계산할 수 있는 값을 또 state로 두면 이런 동기화 문제가 계속 생겨요.',
+    body: '필터링 결과는 state로 따로 들고 있을 필요가 없어요. 원본 목록과 검색어만 state로 두고, 렌더링할 때 `filter`로 계산하면 됩니다. 계산이 무거우면 `useMemo`로 감싸세요.\n\n```tsx\nconst filtered = useMemo(\n  () => items.filter((item) => item.title.includes(query)),\n  [items, query],\n)\n```\n\nstate에서 계산할 수 있는 값을 또 state로 두면 이런 동기화 문제가 계속 생겨요.',
     hoursAgo: 4,
   },
   {
     id: 'c-effect-2',
     postId: 'p-effect-loop',
     authorId: hunter.id,
-    body: '공식 문서의 "You Might Not Need an Effect" 글에 똑같은 예시가 있어요. 한번 읽어 보시길 추천해요.',
+    body: '공식 문서의 "You Might Not Need an Effect" 글에 똑같은 예시가 있어요. 한번 읽어 보시길 추천해요.\nhttps://react.dev/learn/you-might-not-need-an-effect',
     hoursAgo: 3,
   },
   {
