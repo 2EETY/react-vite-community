@@ -3,7 +3,7 @@ import { z } from 'zod'
 export const TITLE_MAX = 60
 export const BODY_MAX = 5000
 export const TAG_MAX_COUNT = 5
-export const TAG_MAX_LENGTH = 15
+const TAG_MAX_LENGTH = 15
 
 /** 폼 검증 규칙을 한곳에 모은 스키마. 타입(PostFormValues)도 여기서 자동으로 만들어진다 */
 export const postSchema = z.object({
