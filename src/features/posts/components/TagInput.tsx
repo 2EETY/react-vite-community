@@ -51,13 +51,14 @@ export const TagInput = ({ id, value, onChange, onBlur }: TagInputProps) => {
         )}
       >
         {value.map((tag) => (
-          <span key={tag} className="flex items-center gap-1 rounded-full bg-line-soft py-0.5 pr-1 pl-2.5 text-sm text-ink">
+          // 회색 알약 대신 목록·상세와 같은 연필색 #태그 글씨로 보여준다
+          <span key={tag} className="flex items-center text-[15px] text-ink-soft">
             #{tag}
             <button
               type="button"
               onClick={() => onChange(value.filter((t) => t !== tag))}
               aria-label={`태그 ${tag} 빼기`}
-              className="grid size-5 place-items-center rounded-full text-xs text-pencil hover:bg-line hover:text-ink"
+              className="grid size-7 place-items-center rounded text-pencil hover:bg-line-soft hover:text-ink"
             >
               <XIcon size={12} />
             </button>

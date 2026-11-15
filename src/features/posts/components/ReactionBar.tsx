@@ -9,12 +9,17 @@ interface ReactionBarProps {
   post: Post
 }
 
-const pillClass = (active: boolean) =>
+/**
+ * 알약 버튼 대신 노트에 적힌 글자 버튼. 마우스를 올리면 밑줄이 생긴다.
+ * 눌린 상태는 형광펜(공감)과 채워진 아이콘(북마크)으로 보여준다.
+ */
+const actionClass = (active: boolean) =>
   cn(
-    'inline-flex h-10 items-center gap-2 rounded-full border px-4 text-[15px] transition-colors disabled:opacity-60',
-    // 눌린 상태는 형광펜(공감)과 채워진 아이콘(북마크)으로 보여주고, 테두리는 같은 모양을 유지한다
-    active ? 'border-line bg-surface font-semibold text-ink' : 'border-line bg-surface text-ink-soft hover:border-ink hover:text-ink',
+    'group inline-flex h-10 items-center gap-1.5 rounded-md px-2 text-[15px] transition-colors disabled:opacity-60',
+    active ? 'font-semibold text-ink' : 'text-ink-soft hover:text-ink',
   )
+
+const underline = 'underline-offset-4 decoration-pencil group-hover:underline'
 
 export const ReactionBar = ({ post }: ReactionBarProps) => {
   const userId = useAuthStore((s) => s.user?.id ?? null)
@@ -37,17 +42,17 @@ export const ReactionBar = ({ post }: ReactionBarProps) => {
   }
 
   return (
-    <div className="flex flex-wrap items-center gap-2">
+    <div className="-ml-2 flex flex-wrap items-center gap-x-3 border-t border-line pt-2">
       <button
         type="button"
         aria-pressed={liked}
         aria-label={`공감 ${post.likedBy.length}개`}
         disabled={likePending}
         onClick={() => guard(() => void toggleLike(post.id), '로그인하면 공감할 수 있어요.')}
-        className={pillClass(liked)}
+        className={actionClass(liked)}
       >
         {/* key를 바꿔 공감할 때마다 형광펜 애니메이션을 다시 재생한다 */}
-        <span key={String(liked)} className={cn('px-0.5 font-semibold', liked && 'marker marker-draw')}>
+        <span key={String(liked)} className={cn('px-0.5', liked ? 'marker marker-draw' : underline)}>
           공감
         </span>
         <span className="tabular-nums">{post.likedBy.length}</span>
@@ -63,14 +68,14 @@ export const ReactionBar = ({ post }: ReactionBarProps) => {
             toast(saved ? '북마크에서 뺐어요.' : '북마크에 담았어요. 목록의 내 북마크에서 볼 수 있어요.')
           }, '로그인하면 북마크할 수 있어요.')
         }
-        className={pillClass(saved)}
+        className={actionClass(saved)}
       >
         <BookmarkIcon filled={saved} />
-        {saved ? '북마크함' : '북마크'}
+        <span className={underline}>{saved ? '북마크함' : '북마크'}</span>
       </button>
 
-      <button type="button" onClick={copyLink} className={pillClass(false)}>
-        주소 복사
+      <button type="button" onClick={copyLink} className={actionClass(false)}>
+        <span className={underline}>주소 복사</span>
       </button>
     </div>
   )
