@@ -12,7 +12,7 @@ import { usePostStore } from '@/stores/postStore'
 
 /** 처음 온 사람도 이 게시판·분류가 무엇을 하는 곳인지 바로 알 수 있게 붙이는 한 줄 설명 */
 const INTRO = {
-  all: '모르는 건 묻고, 오늘 배운 건 적어 두는 게시판이에요.',
+  all: '모르는 건 묻고, 오늘 배운 건 적어 두는 게시판이에요. 질문에 달린 답변을 채택하면 해결된 질문이 돼요.',
   question: '막힌 곳을 물어보세요. 마음에 드는 답변을 채택하면 해결된 질문이 돼요.',
   diary: '오늘 배운 것, 겪은 것을 적어 두는 곳이에요.',
   chat: '개발 이야기 말고도 나누고 싶은 이야기를 적어요.',
@@ -20,7 +20,7 @@ const INTRO = {
 } as const
 
 const HomePage = () => {
-  const { filters, update, reset } = usePostFilters()
+  const { filters, update, hrefWith, reset } = usePostFilters()
   const postMap = usePostStore((s) => s.posts)
   const status = usePostStore((s) => s.status)
   const error = usePostStore((s) => s.error)
@@ -34,6 +34,7 @@ const HomePage = () => {
   const allPosts = useMemo(() => Object.values(postMap), [postMap])
   const counts = useMemo(() => countByCategory(allPosts), [allPosts])
   const savedCount = userId ? allPosts.filter((p) => p.bookmarkedBy.includes(userId)).length : null
+  const ready = status === 'ready'
   const visible = useMemo(
     () => filterPosts(allPosts, { q: query, cat, status: solved, tag, sort, saved }, userId),
     [allPosts, query, cat, solved, tag, sort, saved, userId],
@@ -49,10 +50,11 @@ const HomePage = () => {
         <CategoryNav
           active={cat}
           saved={saved}
-          counts={counts}
-          savedCount={savedCount}
-          onSelect={(next) => update({ cat: next === 'all' ? null : next, view: null, status: null })}
-          onSelectSaved={() => update({ view: 'saved', cat: null, status: null })}
+          counts={ready ? counts : null}
+          savedCount={ready ? savedCount : null}
+          showSaved={userId !== null}
+          hrefFor={(next) => hrefWith({ cat: next === 'all' ? null : next, view: null, status: null })}
+          savedHref={hrefWith({ view: 'saved', cat: null, status: null })}
         />
       </aside>
 

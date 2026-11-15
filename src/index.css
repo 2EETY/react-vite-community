@@ -22,6 +22,9 @@
   /* 토스트는 어느 테마에서든 '종이 위에 올린 진한 쪽지'로 보이게 따로 둔다 */
   --color-note: #1e2a47;
   --color-on-note: #ffffff;
+  /* 주요 동작 버튼(글쓰기·등록). 다크에선 순백 대신 한 단계 낮춰 화면에서 가장 밝은 면이 되지 않게 */
+  --color-action: #1e2a47;
+  --color-on-action: #ffffff;
 
   --animate-toast-in: toast-in 0.22s ease-out;
 }
@@ -44,6 +47,8 @@
   --color-accept-wash: #1f2019;
   --color-note: #323236;
   --color-on-note: #ececee;
+  --color-action: #cfcfd4;
+  --color-on-action: #18181a;
 }
 
 @keyframes toast-in {
@@ -126,7 +131,7 @@
     bottom: 0;
     left: var(--margin-x, 1.75rem);
     width: 1px;
-    background: color-mix(in srgb, var(--color-margin) 80%, transparent);
+    background: var(--color-margin);
     pointer-events: none;
     z-index: 1;
   }
@@ -142,7 +147,9 @@
     var(--color-line-soft) calc(var(--rule) - 1px)
   );
   background-size: 100% var(--rule);
-  background-position: 0 0.5rem;
+  /* 위쪽 여백(padding)에는 선을 긋지 않아 입력칸 테두리와 첫 괘선이 겹치지 않게 */
+  background-origin: content-box;
+  background-clip: content-box;
   /* 스크롤해도 선이 글자와 함께 움직이게 */
   background-attachment: local;
 }

@@ -45,14 +45,25 @@ export const CommentSection = ({ post }: CommentSectionProps) => {
   const isPostAuthor = user?.id === post.authorId
 
   return (
-    <section aria-labelledby="comments-heading" className="mt-10">
-      <h2 id="comments-heading" className="pl-11 text-lg font-bold sm:pl-16">
-        {noun} <span className="text-pencil tabular-nums">{post.commentCount}</span>
-      </h2>
+    <section aria-labelledby="comments-heading">
+      {/* 제목 구간에도 여백선을 그어, 글 본문부터 답변까지 선이 끊기지 않고 한 장으로 이어지게 한다 */}
+      <div className="margin-rule pt-10 pb-4 pl-11 [--margin-x:1.75rem] sm:pl-16 sm:[--margin-x:2.5rem]">
+        <h2 id="comments-heading" className="text-lg font-bold">
+          {noun} <span className="text-pencil tabular-nums">{post.commentCount}</span>
+        </h2>
+      </div>
 
-      <div className={cn('mt-4', notebookSheet)}>
+      <div className={notebookSheet}>
         {!loaded ? (
-          <p className={cn('py-8 text-sm text-pencil', notebookRow)}>{noun}을 불러오는 중이에요.</p>
+          <div role="status" aria-label={`${noun}을 불러오는 중`} className="divide-y divide-line">
+            {[0, 1].map((i) => (
+              <div key={i} className={cn('animate-pulse py-5', notebookRow)}>
+                <div className="h-3 w-24 rounded bg-line-soft" />
+                <div className="mt-3 h-3 w-full rounded bg-line-soft" />
+                <div className="mt-2 h-3 w-2/3 rounded bg-line-soft" />
+              </div>
+            ))}
+          </div>
         ) : sorted.length === 0 ? (
           <p className={cn('py-8 text-[15px] text-ink-soft', notebookRow)}>
             {isQuestion ? '아직 답변이 없어요. 알고 있는 걸 나눠 주세요.' : '첫 댓글을 남겨 보세요.'}

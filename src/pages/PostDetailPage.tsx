@@ -58,7 +58,7 @@ const PostDetailPage = () => {
       <article className="margin-rule -mx-4 mt-4 pr-4 pl-11 [--margin-x:1.75rem] sm:mx-0 sm:pr-0 sm:pl-16 sm:[--margin-x:2.5rem]">
         <header className="border-b border-line pb-5">
           <StatusBadge post={post} />
-          <h1 className="mt-2 text-[26px] leading-tight font-extrabold tracking-tight sm:text-3xl">{post.title}</h1>
+          <h1 className="mt-2 text-[26px] leading-tight font-extrabold tracking-tight text-balance sm:text-3xl">{post.title}</h1>
           <div className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-pencil">
             <span className="font-semibold text-ink">{post.authorName}</span>
             <time dateTime={new Date(post.createdAt).toISOString()}>{timeAgo(post.createdAt)}</time>

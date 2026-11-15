@@ -35,21 +35,28 @@ export const usePostFilters = () => {
     saved: params.get('view') === 'saved',
   }
 
-  const update = (patch: Partial<Record<FilterParam, string | null>>) => {
-    setParams(
-      (prev) => {
-        const next = new URLSearchParams(prev)
-        for (const [key, value] of Object.entries(patch)) {
-          if (value === null || value === undefined || value === '') next.delete(key)
-          else next.set(key, value)
-        }
-        return next
-      },
-      { replace: true },
-    )
+  const update = (patch: FilterPatch) => {
+    setParams((prev) => applyPatch(prev, patch), { replace: true })
+  }
+
+  /** 링크(<Link to>)에 넣을 주소. 새 탭으로 열거나 주소를 복사할 수 있게 버튼 대신 링크로 쓴다 */
+  const hrefWith = (patch: FilterPatch) => {
+    const search = applyPatch(params, patch).toString()
+    return { pathname: '/', search: search ? `?${search}` : '' }
   }
 
   const reset = () => setParams({}, { replace: true })
 
-  return { filters, update, reset }
+  return { filters, update, hrefWith, reset }
+}
+
+type FilterPatch = Partial<Record<FilterParam, string | null>>
+
+const applyPatch = (base: URLSearchParams, patch: FilterPatch) => {
+  const next = new URLSearchParams(base)
+  for (const [key, value] of Object.entries(patch)) {
+    if (value === null || value === undefined || value === '') next.delete(key)
+    else next.set(key, value)
+  }
+  return next
 }

@@ -29,7 +29,8 @@ export const Field = ({ label, htmlFor, error, hint, counter, children }: FieldP
       </div>
       {children}
       {error ? (
-        <p id={ids.error} role="alert" className="border-l border-margin pl-2 text-sm text-margin">
+        // role="alert"는 빼고 입력칸의 aria-describedby로 연결한다. 여러 칸이 동시에 틀려도 한꺼번에 낭독되지 않게
+        <p id={ids.error} className="border-l border-margin pl-2 text-sm text-margin">
           {error}
         </p>
       ) : (

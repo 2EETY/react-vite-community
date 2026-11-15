@@ -1,13 +1,16 @@
+import { Link, type To } from 'react-router-dom'
 import { cn } from '@/lib/utils'
 import type { CategoryKey } from '../usePostFilters'
 
 interface CategoryNavProps {
   active: CategoryKey
   saved: boolean
-  counts: Record<CategoryKey, number>
+  /** 글을 다 불러오기 전에는 null. 이때 0을 보여주면 실제 값처럼 오해할 수 있다 */
+  counts: Record<CategoryKey, number> | null
   savedCount: number | null
-  onSelect: (cat: CategoryKey) => void
-  onSelectSaved: () => void
+  showSaved: boolean
+  hrefFor: (cat: CategoryKey) => To
+  savedHref: To
 }
 
 const ITEMS: Array<{ key: CategoryKey; label: string }> = [
@@ -23,14 +26,16 @@ const itemClass = (active: boolean) =>
     active ? 'font-bold text-ink' : 'text-ink-soft hover:bg-line-soft',
   )
 
-const Count = ({ value }: { value: number }) => (
-  // 숫자는 화면에만 보이고, 스크린리더는 버튼의 aria-label로 "전체, 글 7개"처럼 읽는다
+const Count = ({ value }: { value: number | null }) => (
+  // 숫자는 화면에만 보이고, 스크린리더는 링크의 aria-label로 "전체, 글 7개"처럼 읽는다
   <span aria-hidden className="text-xs font-normal text-pencil tabular-nums">
-    {value}
+    {value ?? '–'}
   </span>
 )
 
-export const CategoryNav = ({ active, saved, counts, savedCount, onSelect, onSelectSaved }: CategoryNavProps) => (
+const nameOf = (label: string, count: number | null) => (count === null ? label : `${label}, 글 ${count}개`)
+
+export const CategoryNav = ({ active, saved, counts, savedCount, showSaved, hrefFor, savedHref }: CategoryNavProps) => (
   <nav
     aria-label="게시판 분류"
     // 모바일: 가로 스크롤은 유지하되 스크롤바는 숨기고, 오른쪽 끝을 흐리게 해 더 있다는 걸 알린다
@@ -39,35 +44,37 @@ export const CategoryNav = ({ active, saved, counts, savedCount, onSelect, onSel
     <ul className="flex items-center gap-1 pr-8 md:flex-col md:items-stretch md:pr-0">
       {ITEMS.map(({ key, label }) => {
         const isActive = !saved && active === key
+        const count = counts?.[key] ?? null
         return (
           <li key={key}>
-            <button
-              type="button"
-              onClick={() => onSelect(key)}
+            {/* 버튼 대신 링크: 새 탭으로 열기, 주소 복사, 뒤로 가기가 모두 자연스럽게 동작한다 */}
+            <Link
+              to={hrefFor(key)}
+              replace
               aria-current={isActive ? 'page' : undefined}
-              aria-label={`${label}, 글 ${counts[key]}개`}
+              aria-label={nameOf(label, count)}
               className={itemClass(isActive)}
             >
               {/* '전체'는 기본 상태라 형광펜 없이 굵게만, 다른 분류를 고르면 형광펜 */}
               <span className={cn(isActive && key !== 'all' && 'marker')}>{label}</span>
-              <Count value={counts[key]} />
-            </button>
+              <Count value={count} />
+            </Link>
           </li>
         )
       })}
-      {savedCount !== null && (
+      {showSaved && (
         // 모바일에선 세로 구분선, 데스크톱에선 가로 구분선으로 '내 북마크'를 분류와 떼어 놓는다
         <li className="ml-1 border-l border-line pl-1 md:mt-3 md:ml-0 md:border-t md:border-l-0 md:pt-3 md:pl-0">
-          <button
-            type="button"
-            onClick={onSelectSaved}
+          <Link
+            to={savedHref}
+            replace
             aria-current={saved ? 'page' : undefined}
-            aria-label={`내 북마크, 글 ${savedCount}개`}
+            aria-label={nameOf('내 북마크', savedCount)}
             className={itemClass(saved)}
           >
             <span className={cn(saved && 'marker')}>내 북마크</span>
             <Count value={savedCount} />
-          </button>
+          </Link>
         </li>
       )}
     </ul>

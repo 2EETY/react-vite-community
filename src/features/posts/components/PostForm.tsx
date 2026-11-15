@@ -45,6 +45,13 @@ export const PostForm = ({ defaultValues, submitLabel, onSubmit }: PostFormProps
       currentLocation.pathname !== nextLocation.pathname,
   )
 
+  // 앱 안에서 넘어왔으면 뒤로, 주소로 바로 들어왔으면(이전 기록 없음) 앱 밖으로 나가지 않게 홈으로
+  const goBack = () => {
+    const idx = (window.history.state as { idx?: number } | null)?.idx ?? 0
+    if (idx > 0) navigate(-1)
+    else navigate('/')
+  }
+
   const submit = handleSubmit(async (values) => {
     try {
       const to = await onSubmit(values)
@@ -69,7 +76,7 @@ export const PostForm = ({ defaultValues, submitLabel, onSubmit }: PostFormProps
           placeholder="무엇이 궁금하거나, 무엇을 남기고 싶나요?"
           aria-invalid={errors.title ? true : undefined}
           aria-describedby={describedBy('title', !!errors.title)}
-          className={inputClass(!!errors.title, 'h-11 text-base font-semibold')}
+          className={inputClass(!!errors.title, 'h-11 text-base font-semibold placeholder:font-normal')}
         />
       </Field>
 
@@ -105,7 +112,7 @@ export const PostForm = ({ defaultValues, submitLabel, onSubmit }: PostFormProps
       )}
 
       <div className="flex justify-end gap-2 border-t border-line pt-5">
-        <Button variant="ghost" onClick={() => navigate(-1)} disabled={isSubmitting}>
+        <Button variant="ghost" onClick={goBack} disabled={isSubmitting}>
           취소
         </Button>
         <Button type="submit" loading={isSubmitting}>
